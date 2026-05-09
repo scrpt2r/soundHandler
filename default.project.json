@@ -1,0 +1,20 @@
+{
+  "name": "soundHandler",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage"
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService"
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": { "$className": "StarterPlayerScripts" },
+      "StarterCharacterScripts": { "$className": "StarterCharacterScripts" }
+    },
+    "Workspace": {
+      "$properties": { "FilteringEnabled": true }
+    }
+  }
+}
