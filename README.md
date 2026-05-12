@@ -19,7 +19,7 @@ local testSound = soundService:WaitForChild("testSounds") -- SoundGroup for stor
 local soundHandler = require(script.Parent:WaitForChild("soundHandler")) -- require the soundHandler lib
 local testSound_ = soundHandler.new(testSound) -- our handler
 
---// IMPORTANT: before setting the sounds or play them pls set the sounds attribute: named as "category", set to: "sound" or "sfx".
+--// IMPORTANT: before setting the sounds or play them pls set the sounds attribute: named as "category", to: "sound" or "sfx".
 
 testSound_:play("test4", "sound") -- test4 play as "sound category"
 print(testSound_) -- prints handler: self (to check threads and queues)
