@@ -14,7 +14,7 @@ soundHandler.luau/ ← entry point
 
 ```lua
 local soundService = game:GetService("SoundService")
-local testSound = soundService:WaitForChild("testSounds") -- SoundGroup for storing the sounds.
+local testSound = soundService:WaitForChild("testSounds") -- SoundGroup for storing the sounds. Could be a Folder. Doesnt affect our system.
 
 local soundHandler = require(script.Parent:WaitForChild("soundHandler")) -- require the soundHandler lib.
 local testSound_ = soundHandler.new(testSound) -- our handler.
