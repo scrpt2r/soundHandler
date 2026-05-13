@@ -41,7 +41,7 @@ end
 --// Lib Public Funcitons
 function soundHandler.new(sounds: Folder)
 	if not sounds then
-		warn("Sound Handler:", "There should be a folder to get path to sounds.")
+		warn("Sound Handler:", "There should be a Folder or a SoundGroup to get path to sounds.")
 		return
 	end
 
