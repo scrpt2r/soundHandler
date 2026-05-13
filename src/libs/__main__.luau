@@ -174,6 +174,11 @@ function soundHandler:pause(sound: string, type_: "sound" | "sfx")
 		return
 	end
 
+	if not self._playQueue[sound] then
+		warn("Sound Handler:", "The", '"' .. sound .. '"', type_, "has already stopped playing or never played before.")
+		return
+	end
+
 	if self._resumeQueue[sound] then
 		warn("Sound Handler:", "The", '"' .. sound .. '"', type_, "has already paused playing or never played before.")
 		return
