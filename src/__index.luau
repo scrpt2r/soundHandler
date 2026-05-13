@@ -5,7 +5,7 @@
 	* @date		  : May 12 2026
 	* @lastEdit	  : April 11 2026 02:52
 	* @brief	  : A modular audio framework built for Roblox developers.
-	* @version	  : 0.0.5
+	* @version	  : 0.2.5
 	******************************************************************************
 	* @attention
 	*
