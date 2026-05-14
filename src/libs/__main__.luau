@@ -1,4 +1,5 @@
 --// Services
+local ScriptEditorService = game:GetService("ScriptEditorService")
 local contentProvider = game:GetService("ContentProvider")
 
 --// Libs
@@ -50,7 +51,7 @@ function soundHandler.new(sounds: Folder)
 		_resumeQueue = {},
 
 		_sounds = {},
-		_removeThreads = {},
+		_connections = {},
 	}, soundHandler)
 
 	self._sounds = loadFrom(sounds)
@@ -58,7 +59,7 @@ function soundHandler.new(sounds: Folder)
 	return self
 end
 
-function soundHandler:play(sound: string, type_: "sound" | "sfx") -- TODO: Looping control for all.
+function soundHandler:play(sound: string, looped: boolean?, type_: "sound" | "sfx")
 	if not sound then
 		warn("Sound Handler:", "Handler needs a 1st argument", '"' .. "sound" .. '"', "typeof: string")
 		return
@@ -82,11 +83,6 @@ function soundHandler:play(sound: string, type_: "sound" | "sfx") -- TODO: Loopi
 		return
 	end
 
-	if self._removeThreads[sound] then
-		task.cancel(self._removeThreads[sound])
-		self._removeThreads[sound] = nil
-	end
-
 	if self._resumeQueue[sound] then
 		warn("Sound Handler:", "The", '"' .. sound .. '"', type_, "is paused already. Call: self:resume() to play it.")
 		return
@@ -95,14 +91,22 @@ function soundHandler:play(sound: string, type_: "sound" | "sfx") -- TODO: Loopi
 	local sound_ = self._sounds[type_][sound] :: Sound
 	self._playQueue[sound] = sound_
 
-	if sound_.TimeLength == 0 then
-		sound_:GetPropertyChangedSignal("TimeLength"):Wait()
+	if sound_.Looped or looped then
+		sound_.Looped = true
+	end
+
+	if self._connections[sound] then
+		self._connections[sound]:Disconnect()
+		self._connections[sound] = nil
 	end
 
 	sound_:Play()
 
-	self._removeThreads[sound] = task.delay(sound_.TimeLength, function() -- TODO: Looping control for all.
-		self._removeThreads[sound] = nil
+	if sound_.Looped then
+		return
+	end
+
+	self._connections[sound] = sound_.Ended:Connect(function(soundId)
 		self:stop(sound, type_)
 	end)
 end
@@ -141,9 +145,9 @@ function soundHandler:stop(sound: string, type_: "sound" | "sfx")
 		return
 	end
 
-	if self._removeThreads[sound] then
-		task.cancel(self._removeThreads[sound])
-		self._removeThreads[sound] = nil
+	if self._connections[sound] then
+		self._connections[sound]:Disconnect()
+		self._connections[sound] = nil
 	end
 
 	self._playQueue[sound]:Stop()
@@ -182,11 +186,6 @@ function soundHandler:pause(sound: string, type_: "sound" | "sfx")
 	if self._resumeQueue[sound] then
 		warn("Sound Handler:", "The", '"' .. sound .. '"', type_, "has already paused playing or never played before.")
 		return
-	end
-
-	if self._removeThreads[sound] then
-		task.cancel(self._removeThreads[sound])
-		self._removeThreads[sound] = nil
 	end
 
 	local sound_ = self._sounds[type_][sound] :: Sound
@@ -230,12 +229,6 @@ function soundHandler:resume(sound: string, type_: "sound" | "sfx")
 	self._resumeQueue[sound] = nil
 
 	sound_:Resume()
-
-	local finalTime = sound_.TimeLength - sound_.TimePosition
-	self._removeThreads[sound] = task.delay(finalTime, function()
-		self._removeThreads[sound] = nil
-		self:stop(sound, type_)
-	end)
 end
 
 return soundHandler

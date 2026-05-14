@@ -24,23 +24,23 @@ local testSound_ = soundHandler.new(testSound) -- our handler.
 
 --// IMPORTANT: before setting the sounds or play them pls set the sounds attribute: named as "category", to: "sound" or "sfx".
 
-testSound_:play("test4", "sound") -- test4 play as "sound" category.
-print(testSound_) -- prints handler: self (to check threads and queues).
+testSound_:play("test4", true, "sound") -- test4 play as looped and "sound" category. Second argument is looped control.
+print(testSound_) -- prints handler: self (to check connections and queues).
 
 task.wait(5)
 
-testSound_:play("test2") -- test2 plays too (if the category is not given it automaticly sets to "sound" category).
-print(testSound_) -- prints handler: self (to check threads and queues).
+testSound_:play("test2") -- test2 plays too (if the category is not given it automaticly sets looped to false and category to "sound").
+print(testSound_) -- prints handler: self (to check connections and queues).
 
 task.wait(2)
 
 testSound_:stop("test4") -- now test4 stops.
-print(testSound_) -- prints handler: self (to check threads and queues).
+print(testSound_) -- prints handler: self (to check connections and queues).
 
 task.wait(5)
 
-testSound_:stop("test2") -- now test2 stops and all clear (threads, queues).
-print(testSound_) -- prints handler: self (to check threads and queues).
+testSound_:stop("test2") -- now test2 stops and all clear (connections, queues).
+print(testSound_) -- prints handler: self (to check connections and queues).
 ```
 
 ```lua
@@ -52,16 +52,16 @@ local testSound_ = soundHandler.new(testSound) -- our handler.
 
 --// IMPORTANT: before setting the sounds or play them pls set the sounds attribute: named as "category", to: "sound" or "sfx".
 
-testSound_:play("test4") -- test4 play as "sound" category.
-print(testSound_) -- prints handler: self (to check threads and queues).
+testSound_:play("test4") -- test4 play as un looped and "sound" category. If not given looped sets as false and category sets as "sound".
+print(testSound_) -- prints handler: self (to check connections and queues).
 
 task.wait(5)
 
-testSound_:pause("test4") -- pauses sound so it could get resumed later. threads does not work if its paused.
-print(testSound_) -- prints handler: self (to check threads and queues).
+testSound_:pause("test4") -- pauses sound so it could get resumed later. connections does not work if its paused.
+print(testSound_) -- prints handler: self (to check connections and queues).
 
 task.wait(6)
 
 testSound_:resume("test4") -- resumes back from the paused position.
-print(testSound_) -- prints handler: self (to check threads and queues).
+print(testSound_) -- prints handler: self (to check connections and queues).
 ```

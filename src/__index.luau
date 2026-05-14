@@ -3,9 +3,9 @@
 	* @file		  : ...soundHandler.luau
 	* @author	  : scrpt2r
 	* @date		  : May 12 2026
-	* @lastEdit	  : May 13 2026 23:54
+	* @lastEdit	  : May 15 2026 01:17
 	* @brief	  : A modular audio framework built for Roblox developers.
-	* @version	  : 0.3.2
+	* @version	  : 1.0.0
 	******************************************************************************
 	* @attention
 	*
