@@ -21,6 +21,8 @@ local testSound_ = soundHandler.new(testSound) -- our handler.
 
 --// IMPORTANT: before setting the sounds or play them pls set the sounds attribute: named as "category", to: "sound" or "sfx".
 
+testSound_:debug(true) -- you will activate the debug section. CLOSE IT BEFORE PUBLISHING THE GAME.
+
 testSound_:play("test4", true, "sound") -- test4 play as looped and "sound" category. Second argument is looped control.
 print(testSound_) -- prints handler: self (to check connections and queues).
 
@@ -48,6 +50,8 @@ local soundHandler = require(script.Parent:WaitForChild("soundHandler")) -- requ
 local testSound_ = soundHandler.new(testSound) -- our handler.
 
 --// IMPORTANT: before setting the sounds or play them pls set the sounds attribute: named as "category", to: "sound" or "sfx".
+
+testSound_:debug(false) -- you will deactivate the debug section.
 
 testSound_:play("test4") -- test4 play as un looped and "sound" category. If not given looped sets as false and category sets as "sound".
 print(testSound_) -- prints handler: self (to check connections and queues).
