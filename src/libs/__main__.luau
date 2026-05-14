@@ -58,7 +58,7 @@ function soundHandler.new(sounds: Folder)
 	return self
 end
 
-function soundHandler:play(sound: string, type_: "sound" | "sfx")
+function soundHandler:play(sound: string, type_: "sound" | "sfx") -- TODO: Looping control for all.
 	if not sound then
 		warn("Sound Handler:", "Handler needs a 1st argument", '"' .. "sound" .. '"', "typeof: string")
 		return
@@ -101,7 +101,7 @@ function soundHandler:play(sound: string, type_: "sound" | "sfx")
 
 	sound_:Play()
 
-	self._removeThreads[sound] = task.delay(sound_.TimeLength, function()
+	self._removeThreads[sound] = task.delay(sound_.TimeLength, function() -- TODO: Looping control for all.
 		self._removeThreads[sound] = nil
 		self:stop(sound, type_)
 	end)
