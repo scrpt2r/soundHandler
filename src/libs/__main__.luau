@@ -1,5 +1,4 @@
 --// Services
-local ScriptEditorService = game:GetService("ScriptEditorService")
 local contentProvider = game:GetService("ContentProvider")
 
 --// Libs
