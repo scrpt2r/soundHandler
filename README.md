@@ -2,9 +2,6 @@
 
 A modular audio framework built for Roblox developers.
 
-## Please Read
-This version of this module does not support looped sounds. It will be integrated in future versions.
-
 ## Structure
 
 ```
